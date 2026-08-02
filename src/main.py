@@ -1,25 +1,13 @@
-students = []
+from flask import Flask, jsonify
+import json
 
-while True:
-    print("\nStudent Management System")
-    print("1. Add Student")
-    print("2. View Students")
-    print("3. Exit")
+app = Flask(__name__)
 
-    choice = input("Enter choice: ")
+@app.route('/api/genres', methods=['GET'])
+def get_data():
+    with open(r'src\rest_server.js','r') as file:
+        data= json.load(file)
+    return jsonify(data), 200
 
-    if choice == "1":
-        name = input("Enter student name: ")
-        students.append(name)
-        print("Student added successfully!")
-
-    elif choice == "2":
-        print("Students:", students)
-
-    elif choice == "3":
-        print("Goodbye!")
-        break
-
-    else:
-        print("Invalid choice.")
-        
+if __name__ == '__main__':
+    app.run(port=3000, debug=True)
